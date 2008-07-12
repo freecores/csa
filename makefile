@@ -40,3 +40,10 @@ check:
                         diff test_dat/$(MODULE).out.sw test_dat/$(MODULE).out.v ;\
                 done)
 
+
+clean:
+	make -s -C sw_sim clean
+	make -s -C rtl clean
+	make -s -C bench clean
+	rm -fr test_dat/*
+
