@@ -14,7 +14,7 @@
 
 module key_computer(cw,key);
 		input 	[63:0]	cw;		// input cw, 	has 64bits
-		output	[447:0]	key;    // output key, 	has 7*64bits
+		output	[447:0]	key;            // output key, 	has 7*64bits
 		
 		wire	[63:0]	key1;
 		wire	[63:0]	key2;
