@@ -26,14 +26,14 @@ unsigned char o_key[8];
 
 int main()
 {
-        int i;
-        int j;
-        int k;
+        int           i;
+        int           j;
+        int           k;
         unsigned char p;
-        int v;
-        int c;
-        int b;
-        /*  first read the input key */
+        int           v;
+        int           c;
+        int           b;
+        /* first read the input key */
         memset(i_key,0,sizeof i_key);
         for (i=63;i>=0;i--)
         {
