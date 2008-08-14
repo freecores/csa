@@ -1,15 +1,20 @@
 
-PROJ_NAME ?= key_perm
+PROJ_NAME ?= key_schedule
 
-%.vpi:%_pli.c
-	iverilog-vpi --name=$(subst .vpi,,$@)  $^
+all:test
+
+csa_pli.vpi:csa_pli.c
+	iverilog-vpi --name=csa_pli  $^
 
 %.vvp:%_tb.v ../rtl/%.v
 	iverilog -tvvp -o$@ $^
 
-test:$(PROJ_NAME).vpi $(PROJ_NAME).vvp 
-	vvp -M. -m$(PROJ_NAME) $(PROJ_NAME).vvp
+test:csa_pli.vpi $(PROJ_NAME).vvp 
+	vvp -M. -mcsa_pli $(PROJ_NAME).vvp
 
 clean:
 	rm -fr *.o *.vvp *.vpi *.log *.key
+
+ 
+key_schedule.vvp:key_schedule_tb.v ../rtl/key_schedule.v ../rtl/key_perm.v
 

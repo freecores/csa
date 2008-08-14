@@ -12,14 +12,14 @@ wire [63:0]o_key;
 initial
 begin
         // read the input key
-        $read_ikey(
+        $read_data(
                                 "../test_dat/key_perm.in"
                                ,i_key
                   );
         #10;
 
         // output the permated key
-        $write_okey(
+        $write_data(
                         "../test_dat/key_perm.out.v"
                        ,o_key
                    );
