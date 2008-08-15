@@ -1,13 +1,20 @@
 
 PROJ_NAME ?= key_schedule
+DEBUG     ?= y
 
-all:test
+ifeq ($(DEBUG),y)
+CFLAGS=-DDEBUG
+else
+CFLAGS=
+endif
+
+all:csa_pli.vpi $(PROJ_NAME).vvp
 
 csa_pli.vpi:csa_pli.c
-	iverilog-vpi --name=csa_pli  $^
+	iverilog-vpi $(CFLAGS) --name=csa_pli  $^ >/dev/null
 
 %.vvp:%_tb.v ../rtl/%.v
-	iverilog -tvvp -o$@ $^
+	iverilog $(CFLAGS) -tvvp -o$@ $^
 
 test:csa_pli.vpi $(PROJ_NAME).vvp 
 	vvp -M. -mcsa_pli $(PROJ_NAME).vvp

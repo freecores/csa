@@ -104,7 +104,13 @@ static int write_data(char *xx)
         vpi_get_value(arg_handle, &value_s);
         strcpy(str,value_s.value.str);
 
-        fp=fopen(str,"w");
+        arg_handle = vpi_scan(arg_itr);
+        value_s.format = vpiStringVal;
+        vpi_get_value(arg_handle, &value_s);
+        if(!strcmp("a",value_s.value.str))
+                fp=fopen(str,"a");
+        else
+                fp=fopen(str,"w");
         if(fp)
         {
                 value_s.format = vpiBinStrVal;

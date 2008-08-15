@@ -11,6 +11,7 @@
 */
 
 #include <memory.h>
+#include <stdio.h>
 #include "csa.h"
 
 #ifndef NULL
@@ -287,6 +288,20 @@ void key_schedule(unsigned char *CK, int *kk)
         }
     }
 
+#ifdef DEBUG 
+{
+        int i;
+        int *p=(int*)kb;
+        for(i=65*8-1;i>=8;i--)
+        {
+                if(p[i/8]&(1<<(i%8)))
+                        printf("1");
+                else
+                        printf("0");
+        }
+        printf("\n");
+}
+#endif
     /*  xor to give kk */
     for(i=0; i<7; i++) {
         for(j=0; j<8; j++) {

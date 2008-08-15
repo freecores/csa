@@ -1,7 +1,12 @@
 
 PROJ_NAME ?= key_schedule
+DEBUG ?=y
 
 CFLAGS=-g -ansi
+
+ifeq ($(DEBUG),y)
+CFLAGS+=-DDEBUG
+endif
 
 all:$(PROJ_NAME)
 

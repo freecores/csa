@@ -1,17 +1,21 @@
 MODULE=key_schedule
 TEST_IN_FILE=test_dat/$(MODULE).in
 TEST_TIMES=1
+DEBUG=n
 
 all:rtlm benchm sw_simm
 
 rtlm:
-	@make -s -C rtl PROJ_NAME=$(MODULE)
-
+	@echo compiling rtl ...
+	@make -s -C rtl    PROJ_NAME=$(MODULE) DEBUG=$(DEBUG)
+ 
 benchm:
-	@make -s -C bench PROJ_NAME=$(MODULE)
+	@echo compiling bench ...
+	@make -s -C bench  PROJ_NAME=$(MODULE) DEBUG=$(DEBUG)
 
 sw_simm:
-	@make -s -C sw_sim PROJ_NAME=$(MODULE)
+	@echo compiling sw_sim ...
+	@make -s -C sw_sim PROJ_NAME=$(MODULE) DEBUG=$(DEBUG)
 
 synthesis:
 	@make -s -C rtl $(MODULE)
@@ -41,8 +45,16 @@ preare_key_schedule:
         done;                                                          \
         echo $$str >$(TEST_IN_FILE)
         
+ifeq ($(DEBUG),y)
+check:
+	@(for ((i=0;i<$(TEST_TIMES);i=i+1))                                       \
+                do                                                                \
+                        make -s -C sw_sim test PROJ_NAME=$(MODULE);               \
+                        make -s -C bench test PROJ_NAME=$(MODULE);                \
+                        diff test_dat/$(MODULE).out.sw test_dat/$(MODULE).out.v ; \
+                done)
 
-
+else
 check:
 	@(for ((i=0;i<$(TEST_TIMES);i=i+1))                                       \
                 do                                                                \
@@ -51,6 +63,7 @@ check:
                         make -s -C bench test PROJ_NAME=$(MODULE);                \
                         diff test_dat/$(MODULE).out.sw test_dat/$(MODULE).out.v ; \
                 done)
+endif
 
 
 clean:

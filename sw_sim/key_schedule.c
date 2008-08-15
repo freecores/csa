@@ -16,21 +16,26 @@ int main()
         for (i=63;i>=0;i--)
         {
              c=getchar();   
+#ifdef DEBUG
              printf("%c",c);
+#endif
              if(c=='1')
              {
                      CK[i/8]|=(1<<(i%8));
              }
         }
+#ifdef DEBUG
+             printf("\n");
+#endif
         memset(kk,0,sizeof kk);
         key_schedule(CK,kk);
-        for(i=56*8;i>=8;i--)
+        for(i=57*8-1;i>=8;i--)
         {
                 if(kk[i/8]&(1<<(i%8)))
                         printf("1");
                 else
                         printf("0");
-
         }
+        printf("\n");
         return 0;
 }

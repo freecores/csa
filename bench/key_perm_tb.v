@@ -21,6 +21,7 @@ begin
         // output the permated key
         $write_data(
                         "../test_dat/key_perm.out.v"
+                       ,"w"
                        ,o_key
                    );
         $finish;
