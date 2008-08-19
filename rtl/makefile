@@ -15,5 +15,8 @@ key_perm:
 key_schedule:
 	iverilog -S $(VFLAGS) -tnull $@.v key_perm.v
 
+block_decypher:
+	iverilog -S $(VFLAGS) -tnull $@.v block_perm.v block_sblock.v
+
 clean:
  	

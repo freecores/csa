@@ -21,6 +21,4 @@ key_perm:csa.o key_perm.o
 
 key_schedule:csa.o key_schedule.o
 
-
-
-
+block_decypher:csa.o block_decypher.o

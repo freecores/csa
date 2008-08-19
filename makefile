@@ -1,4 +1,4 @@
-MODULE=key_schedule
+MODULE=block_decypher
 TEST_IN_FILE=test_dat/$(MODULE).in
 TEST_TIMES=1
 DEBUG=n
