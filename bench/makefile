@@ -1,5 +1,5 @@
 
-PROJ_NAME ?= key_schedule
+PROJ_NAME ?= block_decypher
 DEBUG     ?= y
 
 ifeq ($(DEBUG),y)
@@ -22,6 +22,6 @@ test:csa_pli.vpi $(PROJ_NAME).vvp
 clean:
 	rm -fr *.o *.vvp *.vpi *.log *.key
 
- 
 key_schedule.vvp:key_schedule_tb.v ../rtl/key_schedule.v ../rtl/key_perm.v
 
+block_decypher.vvp:block_decypher_tb.v ../rtl/block_decypher.v ../rtl/block_perm.v ../rtl/block_sbox.v
