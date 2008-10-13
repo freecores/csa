@@ -1,4 +1,4 @@
-PROJ_NAME ?=block_decypher
+PROJ_NAME ?=decrypt
 DEBUG ?=y
 
 ifeq ($(DEBUG),y)
@@ -17,6 +17,9 @@ key_schedule:
 
 block_decypher:
 	iverilog -S $(VFLAGS) -tnull $@.v block_perm.v block_sbox.v
+
+decrypt:
+	iverilog -S $(VFLAGS) -tnull $@.v 
 
 clean:
  	

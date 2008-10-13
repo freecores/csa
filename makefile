@@ -1,9 +1,9 @@
-MODULE=block_decypher
+MODULE=decrypt
 TEST_IN_FILE=test_dat/$(MODULE).in
 TEST_TIMES=1
 DEBUG=y
 
-all:rtlm benchm sw_simm
+all:benchm sw_simm rtlm 
 
 rtlm:
 	@echo compiling rtl ...
@@ -42,6 +42,9 @@ preare_key_perm:
 
 preare_key_schedule:
 	$(call preare_fn,8)
+
+preare_decrypt:
+	$(call preare_fn,196)
         
 ifeq ($(DEBUG),y)
 check:

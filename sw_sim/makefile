@@ -1,5 +1,5 @@
 
-PROJ_NAME ?= block_decypher
+PROJ_NAME ?= decrypt
 DEBUG ?=y
 
 CFLAGS=-g -ansi
@@ -23,4 +23,4 @@ key_schedule:csa.o key_schedule.o
 
 block_decypher:csa.o block_decypher.o
 
-
+decrypt:csa.o decrypt.o

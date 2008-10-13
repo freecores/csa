@@ -1,5 +1,5 @@
 
-PROJ_NAME ?= block_decypher
+PROJ_NAME ?= decrypt
 DEBUG     ?= y
 
 ifeq ($(DEBUG),y)
@@ -25,3 +25,5 @@ clean:
 key_schedule.vvp:key_schedule_tb.v ../rtl/key_schedule.v ../rtl/key_perm.v
 
 block_decypher.vvp:block_decypher_tb.v ../rtl/block_decypher.v ../rtl/block_perm.v ../rtl/block_sbox.v
+
+decypht.vvp:decrypt_tb.v ../rtl/decrypt.v
