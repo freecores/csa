@@ -1,4 +1,4 @@
-PROJ_NAME ?=decrypt
+PROJ_NAME ?=stream_cypher
 DEBUG ?=y
 
 ifeq ($(DEBUG),y)
@@ -18,8 +18,11 @@ key_schedule:
 block_decypher:
 	iverilog -S $(VFLAGS) -tnull $@.v block_perm.v block_sbox.v
 
+stream_cypher:
+	iverilog -S $(VFLAGS) -tnull $@.v sbox1.v sbox2.v sbox3.v sbox4.v sbox5.v sbox6.v sbox7.v sboxes.v stream_iteration.v stream_byte.v stream_8bytes.v
+
 decrypt:
-	iverilog -S $(VFLAGS) -tnull $@.v 
+	iverilog -S $(VFLAGS) -tnull $@.v  key_schedule.v key_perm.v
 
 clean:
  	

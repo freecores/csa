@@ -1,5 +1,5 @@
 
-PROJ_NAME ?= decrypt
+PROJ_NAME ?= stream_cypher
 DEBUG ?=y
 
 CFLAGS=-g -ansi
@@ -14,7 +14,7 @@ clean:
 	rm -fr $(PROJ_NAME)
 	rm -fr *.o
 
-test:
+test:$(PROJ_NAME)
 	./$(PROJ_NAME) <../test_dat/$(PROJ_NAME).in >../test_dat/$(PROJ_NAME).out.sw
 
 key_perm:csa.o key_perm.o
@@ -24,3 +24,5 @@ key_schedule:csa.o key_schedule.o
 block_decypher:csa.o block_decypher.o
 
 decrypt:csa.o decrypt.o
+
+stream_cypher:csa.o stream_cypher.o

@@ -17,10 +17,11 @@
  */
 
 #include <string.h>
+#include <stdio.h>
 #include <vpi_user.h>
 
 
-char  data[120];
+char  data[120*8*8];
 
 static int read_data(char *fn)
 {

@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include "csa.h"
 
+#include "misc.h"
+
 #ifndef NULL
 #define NULL 0
 #endif
@@ -103,6 +105,8 @@ void stream_cypher(int init, unsigned char *CK, unsigned char *sb, unsigned char
         r=0;
     } /* init */
 
+
+
     /*  8 bytes per operation */
     for(i=0; i<8; i++) {
         if (init) {
@@ -134,6 +138,7 @@ void stream_cypher(int init, unsigned char *CK, unsigned char *sb, unsigned char
             if (init)
 				next_A1 = next_A1 ^ D ^ ((j % 2) ? in2 : in1);
 
+            
             /*  T2 =  xor all inputs */
             /*  in1,in2 are only used in T1 during initialisation, not generation */
             /*  if p=0, use this, if p=1, rotate the result left */

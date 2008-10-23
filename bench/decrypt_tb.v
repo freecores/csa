@@ -2,7 +2,7 @@
 // this is the test bench for decrypt module
 
 `timescale 10ns/1ns
-module decypher_tb;
+module decrypt_tb;
        reg      [204*8-1:0]  tt;
        reg      [8*8-1:0]    even_cw;
        reg      [8*8-1:0]    odd_cw;
@@ -25,13 +25,13 @@ begin
         $write_data(
                                  "../test_dat/decypht.out.v"
                                 ,"w"
-                                ,bd
+                                ,encrypted
                    );
         
 end
 
-decypt b(
-                        even_cw(even_cw)
+decrypt b(
+                       .even_cw(even_cw)
                       ,.odd_cw(odd_cw)
                       ,.encrypted(encrypted)
                       ,.decrypted(decrypted)

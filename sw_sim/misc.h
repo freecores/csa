@@ -26,3 +26,19 @@ do {                                        \
         }                                   \
         printf("\n");                       \
 }while(0)
+
+#define DEBUG_OUTPUT_ARR( a , n )                 \
+    do{                                      \
+        int i;                               \
+        for(i=n-1;i>=0;i--)                  \
+        {                                    \
+                printf("%x ",(a)[i]);          \
+        }                                    \
+        printf("\n");                        \
+    }while(0)
+
+#define DEBUG_OUTPUT_VAL( a )                 \
+    do{                                      \
+                printf(" %s=%x ",#a,a);          \
+        printf("\n");                        \
+    }while(0)
