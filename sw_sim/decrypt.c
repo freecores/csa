@@ -12,10 +12,11 @@ int main()
         unsigned char cws[16];
         unsigned char encrypted[188];
         unsigned char decrypted[188];
-        READ_DATA(encrypted,188*8);
         READ_DATA(cws,8*16);
+        READ_DATA(encrypted,188*8);
         set_cws(cws,&key);
         decrypt(&key,encrypted,decrypted);
+        DEBUG_OUTPUT_ARR(decrypted,64);
         WRITE_DATA(decrypted,188*8);
         return 0;
 }

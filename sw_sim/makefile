@@ -1,8 +1,8 @@
 
-PROJ_NAME ?= stream_cypher
+PROJ_NAME ?= decrypt
 DEBUG ?=y
 
-CFLAGS=-g -ansi
+CFLAGS=-g -ggdb -ansi
 
 ifeq ($(DEBUG),y)
 CFLAGS+=-DDEBUG
@@ -16,6 +16,11 @@ clean:
 
 test:$(PROJ_NAME)
 	./$(PROJ_NAME) <../test_dat/$(PROJ_NAME).in >../test_dat/$(PROJ_NAME).out.sw
+
+debug:$(PROJ_NAME)
+	echo "set args <../test_dat/$(PROJ_NAME).in >../test_dat/$(PROJ_NAME).out.sw " >gdb-command
+	ddd ./$(PROJ_NAME) -x gdb-command
+        
 
 key_perm:csa.o key_perm.o
 

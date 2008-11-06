@@ -27,12 +27,13 @@ do {                                        \
         printf("\n");                       \
 }while(0)
 
-#define DEBUG_OUTPUT_ARR( a , n )                 \
+#define DEBUG_OUTPUT_ARR( a , n )            \
     do{                                      \
         int i;                               \
+        printf("%s:\n",#a);                  \
         for(i=n-1;i>=0;i--)                  \
         {                                    \
-                printf("%x ",(a)[i]);          \
+                printf("%x ",(a)[i]);        \
         }                                    \
         printf("\n");                        \
     }while(0)

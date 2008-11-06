@@ -131,12 +131,12 @@ void stream_cypher(int init, unsigned char *CK, unsigned char *sb, unsigned char
                       ( ((B[6]&1)<<2) ^ ((B[8]&2)<<1) ^ ((B[3]&8)>>1) ^ ((B[4]&4)>>0) ) |
                       ( ((B[5]&8)>>2) ^ ((B[8]&4)>>1) ^ ((B[4]&1)<<1) ^ ((B[5]&2)>>0) ) |
                       ( ((B[9]&4)>>2) ^ ((B[6]&8)>>3) ^ ((B[3]&2)>>1) ^ ((B[8]&1)>>0) ) ;
-			
+                        
             /*  T1 = xor all inputs */
             /*  in1,in2, D are only used in T1 during initialisation, not generation */
             next_A1 = A[10] ^ X;
             if (init)
-				next_A1 = next_A1 ^ D ^ ((j % 2) ? in2 : in1);
+                                next_A1 = next_A1 ^ D ^ ((j % 2) ? in2 : in1);
 
             
             /*  T2 =  xor all inputs */
@@ -144,11 +144,11 @@ void stream_cypher(int init, unsigned char *CK, unsigned char *sb, unsigned char
             /*  if p=0, use this, if p=1, rotate the result left */
             next_B1 = B[7] ^ B[10] ^ Y;
             if (init)
-				next_B1 = next_B1 ^ ((j % 2) ? in1 : in2);
+                                next_B1 = next_B1 ^ ((j % 2) ? in1 : in2);
 
             /*  if p=1, rotate left */
             if (p)
-				next_B1 = ( (next_B1 << 1) | ((next_B1 >> 3) & 1) ) & 0xf;
+                                next_B1 = ( (next_B1 << 1) | ((next_B1 >> 3) & 1) ) & 0xf;
 
             /*  T3 = xor all inputs */
             D = E ^ Z ^ extra_B;
@@ -293,27 +293,12 @@ void key_schedule(unsigned char *CK, int *kk)
         }
     }
 
-#ifdef DEBUG 
-{
-        int i;
-        int *p=(int*)kb;
-        for(i=65*8-1;i>=8;i--)
-        {
-                if(p[i/8]&(1<<(i%8)))
-                        printf("1");
-                else
-                        printf("0");
-        }
-        printf("\n");
-}
-#endif
     /*  xor to give kk */
     for(i=0; i<7; i++) {
         for(j=0; j<8; j++) {
             kk[1+i*8+j] = kb[1+i][1+j] ^ i;
         }
     }
-
 }
 
 void block_decypher(int *kk, unsigned char *ib, unsigned char *bd) {
@@ -363,10 +348,10 @@ void block_decypher(int *kk, unsigned char *ib, unsigned char *bd) {
 }
 
 void set_cws(unsigned char *cws, struct key *key) {
-	memcpy(key->odd_ck,cws+8,8);
-	memcpy(key->even_ck,cws,8);
-	key_schedule(key->odd_ck,key->odd_kk);
-	key_schedule(key->even_ck,key->even_kk);
+        memcpy(key->odd_ck,cws+8,8);
+        memcpy(key->even_ck,cws,8);
+        key_schedule(key->odd_ck,key->odd_kk);
+        key_schedule(key->even_ck,key->even_kk);
 }
 
 void decrypt(struct key *key, unsigned char *encrypted, unsigned char *decrypted) {
@@ -378,15 +363,15 @@ void decrypt(struct key *key, unsigned char *encrypted, unsigned char *decrypted
     unsigned char block[8];
     int residue;
 
-	((unsigned long *) decrypted)[0]=((unsigned long *) encrypted)[0];
-	
-	if(decrypted[3]&0x40) {
-		kk=key->odd_kk;
-		ck=key->odd_ck;
-	}
-	
+        ((unsigned long *) decrypted)[0]=((unsigned long *) encrypted)[0];
+        
+        if(decrypted[3]&0x40) {
+                kk=key->odd_kk;
+                ck=key->odd_ck;
+        }
+        
     decrypted[3] &= 0x3f;              /* remove scrambling bits */
-	
+        
     if ((decrypted[3] & 0x20) == 0x20)
       offset += (encrypted[4] +1);               /* skip adaption field */
 
@@ -395,9 +380,10 @@ void decrypt(struct key *key, unsigned char *encrypted, unsigned char *decrypted
 
     /*  1st 8 bytes of initialisation */
     stream_cypher(1, ck, &encrypted[offset], ib);
+    DEBUG_OUTPUT_ARR(ib,8);
 
     for(j=1; j<(N+1); j++) {
-		block_decypher(kk, ib, block);
+                block_decypher(kk, ib, block);
 
         if (j != N) {
             stream_cypher(0, ck, NULL, stream);
@@ -414,6 +400,9 @@ void decrypt(struct key *key, unsigned char *encrypted, unsigned char *decrypted
         /*  xor ib x block */
         for(i=0; i<8; i++)
                  decrypted[offset+8*(j-1)+i] = ib[i] ^ block[i];
+        DEBUG_OUTPUT_ARR(ib,8);
+        DEBUG_OUTPUT_ARR(block,8);
+        DEBUG_OUTPUT_ARR(&decrypted[offset+8*(j-1)+0],8);
     } /* for(j=1; j<(N+1); j++) */
 
     if (residue) {

@@ -44,7 +44,20 @@ preare_key_schedule:
 	$(call preare_fn,8)
 
 preare_decrypt:
-	$(call preare_fn,196)
+	#$(call preare_fn,204) # evenkey + oddkey + ts pacted (188)
+	str="";
+	cp /dev/null $(TEST_IN_FILE);
+	cat decrypted | while read n;                        \
+	do \
+                n=$$(echo $$n | tr 'a-z' 'A-F');                  \
+	        binstr=$$(echo "ibase=16;obase=2;$$n"|bc); \
+	        binstr=$$(echo "$$binstr" | awk ' { n=8-length($$1);for(i=0;i<n;i=i+1) printf "0"; printf $$1; }' )             ;                                   \
+	        str=$$(printf "%s%s" $$str $$binstr) ;                 \
+	        echo -n $$binstr >>$(TEST_IN_FILE); \
+	done
+
+preare_stream_cypher:
+	$(call preare_fn,24)
         
 ifeq ($(DEBUG),y)
 check:

@@ -15,7 +15,7 @@ puts {
 set library_file_list {
                                    design_library {
                                         ../rtl/stream_cypher.v
-                                        ../rtl/stream_iteration.v
+                                        ../rtl/stream_iteration.v 
                                         ../rtl/stream_8bytes.v
                                         ../rtl/sboxes.v
                                         ../rtl/sbox1.v
@@ -29,8 +29,8 @@ set library_file_list {
                                    }
 
                                  test_library   {
-
                                         ../bench/stream_cypher_tb.v
+                                        ../bench/decrypt_tb.v
                                          }
 }
 set top_level              work.stream_cypher_tb
@@ -80,7 +80,7 @@ set last_compile_time $time_now
 vsim $top_level -pli ../bench/csa_pli.sl
 
 
-add wave -r /*cb
+add wave -r /*
 
 radix -hexadecimal 
 
