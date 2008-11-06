@@ -3,8 +3,7 @@
 // this module do a key 64bits perm
 // author: mengxipeng
 //              mengxipeng@gmail.com
-// refer:
-//                        csa.c in vlc opensource project
+
 
 module key_perm(i_key,o_key);
     input   [63:0] i_key;                

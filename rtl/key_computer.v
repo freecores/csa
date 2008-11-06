@@ -23,7 +23,6 @@ module key_computer(cw,key);
 		wire	[63:0]	key5;
 		wire	[63:0]	key6;
 		
-		
 		key_perm kp0 (   cw, key6 );
 		key_perm kp1 ( key6, key5 );
 		key_perm kp2 ( key5, key4 );

@@ -2,17 +2,17 @@
 
 // this file implement the stream cypher module
 
-module stream_cypher(clk,rst_n,en,init,ck,sb,cb);
+module stream_cypher(clk,rst,en,init,ck,sb,cb);
 input                 clk;
-input                 rst_n;   // low enable
+input                 rst;   // hi enable
 input                 en;      // hi enable
 input                 init;    // hi enable
 input  [8 *8-1:0]     ck;
 input  [8 *8-1:0]     sb;
 output [8 *8-1:0]     cb;
 
+
 // intermediate variable
-reg                en_d;
 reg    [10*4-1 : 0]A;
 reg    [10*4-1 : 0]B;
 reg    [4-1    : 0]X;
@@ -24,6 +24,7 @@ reg    [4-1    : 0]F;
 reg                p;
 reg                q;
 reg                r;
+reg    [8 *8-1 : 0]cb;
 
 wire   [10*4-1 : 0]Ao;
 wire   [10*4-1 : 0]Ainit;
@@ -38,6 +39,7 @@ wire   [4-1    : 0]Fo;
 wire               po;
 wire               qo;
 wire               ro;
+wire   [8 *8-1 : 0]cbo;
 
 assign Ainit = { 
                 4'b0,         4'b0,
@@ -57,7 +59,7 @@ assign Binit = {
 
 always @(posedge clk)
 begin
-        if(!rst_n)
+        if(rst)
         begin
                 A<= 40'h0000000000;
                 B<= 40'h0000000000;
@@ -70,13 +72,12 @@ begin
                 p<=  8'h00;
                 q<=  8'h00;
                 r<=  8'h00;
-                en_d <= 1'h00;
         end
         else 
         begin
-                en_d <= en;
-                if(en_d)
+                if(en)
                 begin
+                        cb <= cbo;
                         A<=  Ao;
                         B<=  Bo;
                         X<=  Xo;
@@ -88,7 +89,6 @@ begin
                         p<=  po;
                         q<=  qo;
                         r<=  ro;
-                        
                 end
         end
 end
@@ -120,7 +120,7 @@ stream_8bytes b(
                        ,.po(po)
                        ,.qo(qo)
                        ,.ro(ro)
-                       ,.cb(cb)
+                       ,.cb(cbo)
                 );
 
 endmodule
