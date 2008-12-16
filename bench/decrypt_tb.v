@@ -231,9 +231,8 @@ begin
         encrypted[  1] = tt [  1*8-1 :  0*8 ] ;
         en=0;
         key_en=0;
-
         
-        repeat(4)@(posedge clk);
+        repeat(14)@(posedge clk);
 
         // set even cw 
         @(posedge clk);
@@ -255,8 +254,6 @@ begin
         @(posedge clk);
         key_en=0;
         repeat (11)@(posedge clk);
-
-
         repeat(4)@(posedge clk);
 
         // decrypt

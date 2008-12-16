@@ -1,5 +1,5 @@
 
-PROJ_NAME ?= decrypt
+PROJ_NAME ?= key_schedule
 DEBUG     ?= y
 
 MODELSIM_DIR=/opt/modeltech
@@ -55,7 +55,10 @@ decrypt.vvp:decrypt_tb.v                             \
                         ../rtl/sboxes.v              \
                         ../rtl/stream_iteration.v    \
                         ../rtl/stream_byte.v         \
-                        ../rtl/stream_8bytes.v       
+                        ../rtl/stream_8bytes.v       \
+                        ../rtl/single_block_decryper.v  \
+                        ../rtl/block_sbox.v  \
+                        ../rtl/block_decypher.v
 
 stream_cypher.vvp:stream_cypher_tb.v                 \
                         ../rtl/stream_cypher.v       \
@@ -70,3 +73,6 @@ stream_cypher.vvp:stream_cypher_tb.v                 \
                         ../rtl/stream_iteration.v    \
                         ../rtl/stream_byte.v         \
                         ../rtl/stream_8bytes.v       
+
+veriwell_test:
+	veriwell key_schedule_tb.v ../rtl/key_schedule.v ../rtl/key_perm.v
